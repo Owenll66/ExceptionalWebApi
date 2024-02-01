@@ -1,0 +1,6 @@
+@WebApiExceptionTest_HostAddress = http://localhost:5267
+
+GET {{WebApiExceptionTest_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
