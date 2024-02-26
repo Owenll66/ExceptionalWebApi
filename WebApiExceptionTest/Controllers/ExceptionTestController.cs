@@ -23,19 +23,19 @@ namespace WebApiExceptionTest.Controllers
                     throw new InvalidException();
 
                 case ExceptionType.UnauthorizedException:
-                    throw new InvalidException();
+                    throw new UnauthorizedException();
 
                 case ExceptionType.PaymentRquiredException:
-                    throw new InvalidException();
+                    throw new PaymentRquiredException();
 
                 case ExceptionType.ForbiddenException:
-                    throw new InvalidException();
+                    throw new ForbiddenException();
 
                 case ExceptionType.NotFoundException:
-                    throw new InvalidException();
+                    throw new NotFoundException();
 
                 case ExceptionType.InternalServerException:
-                    throw new InvalidException();
+                    throw new InternalServerException();
 
                 default:
                     return Ok();
