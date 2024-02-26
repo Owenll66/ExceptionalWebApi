@@ -1,6 +1,6 @@
 ﻿namespace ExceptionalWebApi.Exceptions
 {
-    public class PaymentRquiredException : Exception
+    public class InvalidRequestException : Exception
     {
     }
 }

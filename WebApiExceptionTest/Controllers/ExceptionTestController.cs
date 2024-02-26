@@ -14,19 +14,41 @@ namespace WebApiExceptionTest.Controllers
             _logger = logger;
         }
 
-        [HttpGet("")]
+        [HttpGet("test/{exceptionType}")]
+        public IActionResult GetTest(ExceptionType exceptionType)
+        {
+            switch (exceptionType)
+            {
+                case ExceptionType.InvalidRequestException:
+                    return BadRequest();
+
+                case ExceptionType.UnauthorizedException:
+                    return Unauthorized();
+
+                case ExceptionType.ForbiddenException:
+                    return Forbid();
+
+                case ExceptionType.NotFoundException:
+                    return NotFound();
+
+                case ExceptionType.InternalServerException:
+                    return StatusCode(500);
+
+                default:
+                    return Ok();
+            }
+        }
+
+        [HttpGet("{exceptionType}")]
         public IActionResult Get(ExceptionType exceptionType)
         {
             switch (exceptionType)
             {
-                case ExceptionType.InvalidException:
-                    throw new InvalidException();
+                case ExceptionType.InvalidRequestException:
+                    throw new InvalidRequestException();
 
                 case ExceptionType.UnauthorizedException:
                     throw new UnauthorizedException();
-
-                case ExceptionType.PaymentRquiredException:
-                    throw new PaymentRquiredException();
 
                 case ExceptionType.ForbiddenException:
                     throw new ForbiddenException();
