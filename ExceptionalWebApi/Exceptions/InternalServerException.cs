@@ -1,6 +1,5 @@
-﻿namespace ExceptionalWebApi.Exceptions
+﻿namespace ExceptionalWebApi.Exceptions;
+
+public class InternalServerException : AppException
 {
-    public class InternalServerException : Exception
-    {
-    }
 }

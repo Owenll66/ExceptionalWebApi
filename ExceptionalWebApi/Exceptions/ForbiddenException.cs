@@ -1,6 +1,5 @@
-﻿namespace ExceptionalWebApi.Exceptions
+﻿namespace ExceptionalWebApi.Exceptions;
+
+public class ForbiddenException : AppException
 {
-    public class ForbiddenException : Exception
-    {
-    }
 }

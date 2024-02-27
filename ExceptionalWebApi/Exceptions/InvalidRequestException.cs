@@ -1,6 +1,8 @@
-﻿namespace ExceptionalWebApi.Exceptions
+﻿namespace ExceptionalWebApi.Exceptions;
+
+public class InvalidRequestException : AppException
 {
-    public class InvalidRequestException : Exception
+    public InvalidRequestException(object exceptionObject) : base(exceptionObject)
     {
     }
 }

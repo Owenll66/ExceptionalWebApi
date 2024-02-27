@@ -1,9 +1,7 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
 using ExceptionalWebApi.Exceptions;
-using Microsoft.AspNetCore.Http.HttpResults;
+using ExceptionalWebApi.Extensions;
 
 namespace ExceptionalWebApi.Middleware;
 
@@ -24,27 +22,12 @@ public class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
-        catch (Exception ex)
+        catch (AppException ex)
         {
-            await HandleExceptionAsync(context, ex);
+            var apiException = ex.CovertToApiException();
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = apiException.statusCode;
+            await context.Response.WriteAsJsonAsync(apiException.payload);
         }
-    }
-
-    private async Task HandleExceptionAsync(HttpContext context, Exception exception)
-    {
-        IActionResult result = exception switch
-        {
-            InvalidRequestException _ => new BadRequestResult(),
-            UnauthorizedException _ => new UnauthorizedResult(),
-            ForbiddenException _ => new ForbidResult(),
-            NotFoundException _ => new NotFoundResult(),
-
-            _ => new StatusCodeResult(500)
-        };
-
-        context.Response.ContentType = "application/json";
-        //context.Response.StatusCode = (int)result.StatusCode;
-
-        await context.Response.WriteAsJsonAsync(result.GetType());
     }
 }
