@@ -1,5 +1,6 @@
 using ExceptionalWebApi.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 
 namespace WebApiExceptionTest.Controllers
 {
@@ -45,7 +46,7 @@ namespace WebApiExceptionTest.Controllers
             switch (exceptionType)
             {
                 case ExceptionType.InvalidRequestException:
-                    throw new InvalidRequestException();
+                    throw new InvalidRequestException(new Point(1,1));
 
                 case ExceptionType.UnauthorizedException:
                     throw new UnauthorizedException();

@@ -1,6 +1,5 @@
-﻿namespace ExceptionalWebApi.Exceptions
+﻿namespace ExceptionalWebApi.Exceptions;
+
+public class NotFoundException : AppException
 {
-    public class NotFoundException : Exception
-    {
-    }
 }
