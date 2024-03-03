@@ -1,4 +1,4 @@
-﻿namespace WebApiExceptionTest
+﻿namespace WebApi
 {
     public enum ExceptionType
     {

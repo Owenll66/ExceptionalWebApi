@@ -1,8 +1,8 @@
 using ExceptionalWebApi.Exceptions;
+using ExceptionTestWebApi.Requests;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
 
-namespace WebApiExceptionTest.Controllers
+namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -46,13 +46,13 @@ namespace WebApiExceptionTest.Controllers
             switch (exceptionType)
             {
                 case ExceptionType.InvalidRequestException:
-                    throw new InvalidRequestException(new Point(1,1));
+                    throw new InvalidRequestException(BadRequest());
 
                 case ExceptionType.UnauthorizedException:
-                    throw new UnauthorizedException();
+                    throw new UnauthorizedException("Unauthorized request");
 
                 case ExceptionType.ForbiddenException:
-                    throw new ForbiddenException();
+                    throw new ForbiddenException(new { Prop1 = "Prop1", Prop2 = "Prop2" });
 
                 case ExceptionType.NotFoundException:
                     throw new NotFoundException();
@@ -63,6 +63,12 @@ namespace WebApiExceptionTest.Controllers
                 default:
                     return Ok();
             }
+        }
+
+        [HttpPost("requestValidation")]
+        public IActionResult RquestValidation([FromBody] RequestsForValidations request)
+        {
+            return Ok();
         }
     }
 }
