@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ExceptionalWebApi\ExceptionalWebApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Responses\" />
+  </ItemGroup>
+
 </Project>
