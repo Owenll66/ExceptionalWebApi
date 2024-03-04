@@ -1,8 +1,11 @@
-﻿namespace ExceptionalWebApi.Exceptions;
+﻿using ExceptionalWebApi.Responses;
 
-public class UnauthorizedException : AppException
+namespace ExceptionalWebApi.Exceptions;
+
+public class UnauthorizedException : ApiException
 {
-    public UnauthorizedException(object? error) : base(error)
+    public UnauthorizedException(UnauthorizedProblemDetails? problemDetails = null)
     {
+        ProblemDetails = problemDetails ?? new UnauthorizedProblemDetails();
     }
 }
