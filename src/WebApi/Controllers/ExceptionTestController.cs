@@ -1,5 +1,4 @@
 using ExceptionalWebApi.Exceptions;
-using ExceptionTestWebApi.Requests;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -16,39 +15,18 @@ namespace WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{exceptionType}")]
-        public IActionResult GetTest(HttpStatusCode exceptionType)
-        {
-            switch (exceptionType)
-            {
-                case HttpStatusCode.BadRequest:
-                    return BadRequest();
-
-                case HttpStatusCode.Unauthorized:
-                    return Unauthorized();
-
-                case HttpStatusCode.Forbidden:
-                    return Forbid();
-
-                case HttpStatusCode.NotFound:
-                    return NotFound();
-
-                case HttpStatusCode.InternalServerError:
-                    return StatusCode(500);
-
-                default:
-                    return Ok();
-            }
-        }
-
         [HttpPost("{statusCode}")]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetHttpResponseByStatusCode([FromRoute]HttpStatusCode statusCode, [FromBody] object? returnPayload)
         {
             switch (statusCode)
             {
                 case HttpStatusCode.BadRequest:
-                    throw new BadRequestException(returnPayload);
+                    throw new BadRequestException(new ValidationProblemDetails());
 
                 case HttpStatusCode.Unauthorized:
                     throw new UnauthorizedException(returnPayload);
@@ -65,12 +43,6 @@ namespace WebApi.Controllers
                 default:
                     return Ok();
             }
-        }
-
-        [HttpPost("requestValidation")]
-        public IActionResult RquestValidation([FromBody] RequestsForValidations request)
-        {
-            return Ok();
         }
     }
 }
