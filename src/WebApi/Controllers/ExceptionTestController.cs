@@ -42,6 +42,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("{statusCode}")]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public IActionResult GetHttpResponseByStatusCode([FromRoute]HttpStatusCode statusCode, [FromBody] object? returnPayload)
         {
             switch (statusCode)

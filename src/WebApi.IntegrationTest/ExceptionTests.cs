@@ -5,12 +5,12 @@ using System.Text.Json;
 
 namespace WebApi.IntegrationTest;
 
-public class HttpExceptionTests
+public class ExceptionTests
     : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public HttpExceptionTests(WebApplicationFactory<Program> factory)
+    public ExceptionTests(WebApplicationFactory<Program> factory)
     {
         _factory = factory;
     }
@@ -27,19 +27,17 @@ public class HttpExceptionTests
         var client = _factory.CreateClient();
         var url = "exceptions/" + statusCode;
 
-        var httpContent = BuildRequestContent("test");
+        var payload = new { Title = "Exception Test", StatusCode = statusCode, };
+
+        var serializedPayload = JsonSerializer.Serialize(payload);
+        var httpContent = new StringContent(serializedPayload, Encoding.UTF8, "application/json");
 
         // Act
         var response = await client.PostAsync(url, httpContent);
+        var responseContent = await response.Content.ReadAsStringAsync();
 
         // Assert
         Assert.Equal(statusCode, response.StatusCode);
-    }
-
-    public static StringContent BuildRequestContent<T>(T content)
-    {
-        string serialized = JsonSerializer.Serialize(content);
-
-        return new StringContent(serialized, Encoding.UTF8, "application/json");
+        Assert.Equal(serializedPayload, responseContent);
     }
 }
