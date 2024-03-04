@@ -7,7 +7,7 @@ namespace ExceptionalWebApi.Extensions
     {
         public static ApiException CovertToApiException(this AppException exception) => exception switch
         {
-            InvalidRequestException _ => new ApiException(StatusCodes.Status400BadRequest, exception.ExceptionObject),
+            BadRequestException _ => new ApiException(StatusCodes.Status400BadRequest, exception.ExceptionObject),
             UnauthorizedException _ => new ApiException(StatusCodes.Status401Unauthorized, exception.ExceptionObject),
             ForbiddenException _ => new ApiException(StatusCodes.Status403Forbidden, exception.ExceptionObject),
             NotFoundException _ => new ApiException(StatusCodes.Status404NotFound, exception.ExceptionObject),

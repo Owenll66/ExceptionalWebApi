@@ -28,3 +28,5 @@ app.MapControllers();
 app.UseExceptionHandling();
 
 app.Run();
+
+public partial class Program { }

@@ -2,11 +2,7 @@
 
 public class ForbiddenException : AppException
 {
-    public ForbiddenException()
-    {
-    }
-
-    public ForbiddenException(object error) : base(error)
+    public ForbiddenException(object? error) : base(error)
     {
     }
 }

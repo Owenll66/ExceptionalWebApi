@@ -2,11 +2,7 @@
 
 public class NotFoundException : AppException
 {
-    public NotFoundException()
-    {
-    }
-
-    public NotFoundException(object error) : base(error)
+    public NotFoundException(object? error) : base(error)
     {
     }
 }
