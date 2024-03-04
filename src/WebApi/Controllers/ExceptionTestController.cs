@@ -15,7 +15,7 @@ namespace WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpPost("{statusCode}")]
+        [HttpGet("{statusCode}")]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -26,7 +26,7 @@ namespace WebApi.Controllers
             switch (statusCode)
             {
                 case HttpStatusCode.BadRequest:
-                    throw new BadRequestException(new() { Errors = new Dictionary<string, string[]>() { ["aa"] = ["aaa"], ["bb"] = ["bbb"] } });
+                    throw new BadRequestException();
 
                 case HttpStatusCode.Unauthorized:
                     throw new UnauthorizedException();
