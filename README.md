@@ -25,9 +25,9 @@ This will be transalated to json response:
 
 You can produce more detailed error by specifying the problem details:
 ```csharp
-throw new BadRequestException(new BadRequestProblemDetails { /* Details goes here */ });
-throw new InternalServerErrorException(new InternalServerErrorProblemDetails() { /* Details goes here */ });
-throw new NotFoundException(new NotFoundProblemDetails() { /* Details goes here */ })
+throw new BadRequestException(new BadRequestProblemDetails { /* Detail goes here */ });
+throw new InternalServerErrorException(new InternalServerErrorProblemDetails() { /* Detail goes here */ });
+throw new NotFoundException(new NotFoundProblemDetails() { /* Detail goes here */ })
 ...
 ```
 
