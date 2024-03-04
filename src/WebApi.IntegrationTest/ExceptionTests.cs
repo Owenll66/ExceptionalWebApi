@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
-using System.Text;
 using System.Text.Json;
 
 namespace WebApi.IntegrationTest;
 
-public class ExceptionTests
-    : IClassFixture<WebApplicationFactory<Program>>
+public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
