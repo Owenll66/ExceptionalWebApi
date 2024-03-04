@@ -1,8 +1,11 @@
-﻿namespace ExceptionalWebApi.Exceptions;
+﻿using ExceptionalWebApi.Responses;
 
-public class ForbiddenException : AppException
+namespace ExceptionalWebApi.Exceptions;
+
+public class ForbiddenException : ApiException
 {
-    public ForbiddenException(object? error) : base(error)
+    public ForbiddenException(ForbiddenProblemDetails? problemDetails = null)
     {
+        ProblemDetails = problemDetails ?? new ForbiddenProblemDetails();
     }
 }

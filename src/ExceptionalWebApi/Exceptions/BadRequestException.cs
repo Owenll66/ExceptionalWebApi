@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExceptionalWebApi.Responses;
 
 namespace ExceptionalWebApi.Exceptions;
 
-public class BadRequestException : AppException
+public class BadRequestException : ApiException
 {
-    public BadRequestException(string? title, string? detail, string? instance)
+    public BadRequestException(BadRequestProblemDetails? problemDetails = null)
     {
-        ExceptionObject = new ValidationProblemDetails { Title = title, Detail = detail, Instance = instance, Status = 400 };
-    }
-
-    public BadRequestException(ValidationProblemDetails? validationError)
-    {
-        ExceptionObject = validationError ?? new ValidationProblemDetails { Status = 400 };
+        ProblemDetails = problemDetails ?? new BadRequestProblemDetails();
     }
 }

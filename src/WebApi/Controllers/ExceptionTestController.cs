@@ -21,24 +21,24 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetHttpResponseByStatusCode([FromRoute]HttpStatusCode statusCode, [FromBody] object? returnPayload)
+        public IActionResult GetHttpResponseByStatusCode([FromRoute]HttpStatusCode statusCode)
         {
             switch (statusCode)
             {
                 case HttpStatusCode.BadRequest:
-                    throw new BadRequestException(new ValidationProblemDetails());
+                    throw new BadRequestException(new() { Errors = new Dictionary<string, string[]>() { ["aa"] = ["aaa"], ["bb"] = ["bbb"] } });
 
                 case HttpStatusCode.Unauthorized:
-                    throw new UnauthorizedException(returnPayload);
+                    throw new UnauthorizedException();
 
                 case HttpStatusCode.Forbidden:
-                    throw new ForbiddenException(returnPayload);
+                    throw new ForbiddenException();
 
                 case HttpStatusCode.NotFound:
-                    throw new NotFoundException(returnPayload);
+                    throw new NotFoundException();
 
                 case HttpStatusCode.InternalServerError:
-                    throw new InternalServerException(returnPayload);
+                    throw new InternalServerErrorException();
 
                 default:
                     return Ok();

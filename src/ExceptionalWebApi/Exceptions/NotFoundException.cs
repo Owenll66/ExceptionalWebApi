@@ -1,8 +1,11 @@
-﻿namespace ExceptionalWebApi.Exceptions;
+﻿using ExceptionalWebApi.Responses;
 
-public class NotFoundException : AppException
+namespace ExceptionalWebApi.Exceptions;
+
+public class NotFoundException : ApiException
 {
-    public NotFoundException(object? error) : base(error)
+    public NotFoundException(NotFoundProblemDetails? problemDetails = null)
     {
+        ProblemDetails = problemDetails ?? new NotFoundProblemDetails();
     }
 }
