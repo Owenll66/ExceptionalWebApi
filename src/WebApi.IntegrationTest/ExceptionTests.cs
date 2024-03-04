@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Text;
@@ -27,17 +28,21 @@ public class ExceptionTests
         var client = _factory.CreateClient();
         var url = "exceptions/" + statusCode;
 
-        var payload = new { Title = "Exception Test", StatusCode = statusCode, };
-
-        var serializedPayload = JsonSerializer.Serialize(payload);
-        var httpContent = new StringContent(serializedPayload, Encoding.UTF8, "application/json");
-
         // Act
-        var response = await client.PostAsync(url, httpContent);
+        var response = await client.GetAsync(url);
         var responseContent = await response.Content.ReadAsStringAsync();
 
         // Assert
         Assert.Equal(statusCode, response.StatusCode);
-        //Assert.Equal(serializedPayload, responseContent);
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            var validationProblemDetails = JsonSerializer.Deserialize<ValidationProblemDetails>(responseContent);
+            Assert.IsType<ValidationProblemDetails>(validationProblemDetails);
+        }
+        else
+        {
+            var validationProblemDetails = JsonSerializer.Deserialize<ProblemDetails>(responseContent);
+            Assert.IsType<ProblemDetails>(validationProblemDetails);
+        }
     }
 }
