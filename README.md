@@ -1,6 +1,10 @@
 # ExceptionalWebApi
 A .net web api library that translates exceptions to consistent http error responses fluently.
 
+More new features and supported exceptions can be requested through [issues](https://github.com/Owenll66/ExceptionalWebApi/issues) in this repository.
+
+If you wish to contribute to this repository, please create an issue and or pick up an existing issue and lets discuss first.
+
 ## Get Started
 
 In Program.cs file:
@@ -32,3 +36,4 @@ throw new NotFoundException(new NotFoundProblemDetails() { /* Detail goes here *
 ```
 
 The execeptions will be translated to errors in a consistent format in json.
+
