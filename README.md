@@ -1,9 +1,12 @@
 # ExceptionalWebApi
+
 A .net web api library that translates exceptions to consistent http error responses fluently.
 
 More new features and supported exceptions can be requested through [issues](https://github.com/Owenll66/ExceptionalWebApi/issues) in this repository.
 
 If you wish to contribute to this repository, please create an issue and or pick up an existing issue and lets discuss first.
+
+Nuget Package: https://www.nuget.org/packages?q=ExceptionalWebapi
 
 ## Get Started
 
