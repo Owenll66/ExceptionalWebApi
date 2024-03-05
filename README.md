@@ -14,7 +14,7 @@ In Program.cs file:
 ```csharp
 using ExceptionalWebApi;
 //...
-app.UseExceptionHandling();
+app.UseApiExceptionHandling();
 ```
 
 In any layer of your code, throw the exception as below:

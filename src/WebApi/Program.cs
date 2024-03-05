@@ -25,7 +25,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseExceptionHandling();
+app.UseApiExceptionHandling();
 
 app.Run();
 
