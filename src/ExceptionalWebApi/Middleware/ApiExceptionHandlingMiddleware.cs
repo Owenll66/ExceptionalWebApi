@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExceptionalWebApi.Middleware;
 
-public class ExceptionHandlingMiddleware
+public class ApiExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+    private readonly ILogger<ApiExceptionHandlingMiddleware> _logger;
 
-    public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
+    public ApiExceptionHandlingMiddleware(RequestDelegate next, ILogger<ApiExceptionHandlingMiddleware> logger)
     {
         _next = next;
         _logger = logger;
