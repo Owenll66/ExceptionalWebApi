@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExceptionalWebApi", "Except
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{5EEEF437-0870-4D99-9C7A-E2389531ACA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.IntegrationTest", "WebApi.IntegrationTest\WebApi.IntegrationTest.csproj", "{D5B36682-AFF4-49FE-98B0-01E15140AC80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.IntegrationTest", "WebApi.IntegrationTest\WebApi.IntegrationTest.csproj", "{D5B36682-AFF4-49FE-98B0-01E15140AC80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
