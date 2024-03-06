@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace WebApi.IntegrationTest;
@@ -15,32 +15,32 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Theory]
-    [InlineData(HttpStatusCode.BadRequest)]
-    [InlineData(HttpStatusCode.Unauthorized)]
-    [InlineData(HttpStatusCode.Forbidden)]
-    [InlineData(HttpStatusCode.NotFound)]
-    [InlineData(HttpStatusCode.InternalServerError)]
-    public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatus(HttpStatusCode statusCode)
+    [InlineData(HttpStatusCode.BadRequest, "testProp1", 1)]
+    [InlineData(HttpStatusCode.Unauthorized, "testProp2", 2)]
+    [InlineData(HttpStatusCode.Forbidden, "testProp3", 3)]
+    [InlineData(HttpStatusCode.NotFound, "testProp4", 4)]
+    [InlineData(HttpStatusCode.InternalServerError, "testProp5", 5)]
+    public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatus(HttpStatusCode statusCode, string payloadProp1, int payloadProp2)
     {
         // Arrange
         var client = _factory.CreateClient();
         var url = "exceptions/" + statusCode;
 
         // Act
-        var response = await client.GetAsync(url);
+        var response = await client.PostAsJsonAsync(url, new RequestPayload { Prop1 = payloadProp1, Prop2 = payloadProp2 });
         var responseContent = await response.Content.ReadAsStringAsync();
+
+        var payLoad = JsonSerializer.Deserialize<RequestPayload>(responseContent);
 
         // Assert
         Assert.Equal(statusCode, response.StatusCode);
-        if (response.StatusCode == HttpStatusCode.BadRequest)
-        {
-            var validationProblemDetails = JsonSerializer.Deserialize<ValidationProblemDetails>(responseContent);
-            Assert.IsType<ValidationProblemDetails>(validationProblemDetails);
-        }
-        else
-        {
-            var validationProblemDetails = JsonSerializer.Deserialize<ProblemDetails>(responseContent);
-            Assert.IsType<ProblemDetails>(validationProblemDetails);
-        }
+        Assert.Equal(payloadProp1, payLoad!.Prop1);
+        Assert.Equal(payloadProp2, payLoad.Prop2);
+    }
+
+    private class RequestPayload
+    {
+        public string? Prop1 { get; set; }
+        public int Prop2 { get; set; }
     }
 }
