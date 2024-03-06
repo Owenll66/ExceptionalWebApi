@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ExceptionalWebApi.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using ExceptionalWebApi.Exceptions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ExceptionalWebApi.Middleware;
 
@@ -26,13 +25,10 @@ public class ApiExceptionHandlingMiddleware
         {
             context.Response.ContentType = "application/json";
 
-            if (ex.ProblemDetails.Status.HasValue)
-                context.Response.StatusCode = ex.ProblemDetails.Status.Value;
+            if (ex.StatusCode.HasValue)
+                context.Response.StatusCode = ex.StatusCode.Value;
 
-            if (ex.ProblemDetails is ValidationProblemDetails validationProblemDetails)
-                await context.Response.WriteAsJsonAsync(validationProblemDetails);
-            else
-                await context.Response.WriteAsJsonAsync(ex.ProblemDetails);
+            await context.Response.WriteAsJsonAsync(ex.ErrorResponse);
         }
     }
 }

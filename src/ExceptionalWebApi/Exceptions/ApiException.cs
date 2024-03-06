@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace ExceptionalWebApi.Exceptions;
+﻿namespace ExceptionalWebApi.Exceptions;
 
 public class ApiException : Exception
 {
-    public ProblemDetails ProblemDetails { get; set; }
+    public object ErrorResponse { get; set; }
+
+    public int? StatusCode { get; set; }
 
     public ApiException()
     {
-        ProblemDetails = new ProblemDetails();
+        ErrorResponse = new();
     }
 
-    public ApiException(ProblemDetails problemDetails)
+    public ApiException(object errorResponse)
     {
-        ProblemDetails = problemDetails;
+        ErrorResponse = errorResponse;
     }
 }

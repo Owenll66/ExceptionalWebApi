@@ -4,8 +4,15 @@ namespace ExceptionalWebApi.Exceptions;
 
 public class NotFoundException : ApiException
 {
+    public NotFoundException(object errorResponse, int? statusCode = null)
+    {
+        ErrorResponse = errorResponse;
+        StatusCode = statusCode;
+    }
+
     public NotFoundException(NotFoundProblemDetails? problemDetails = null)
     {
-        ProblemDetails = problemDetails ?? new NotFoundProblemDetails();
+        ErrorResponse = problemDetails ?? new NotFoundProblemDetails();
+        StatusCode = ((NotFoundProblemDetails)ErrorResponse).Status;
     }
 }
