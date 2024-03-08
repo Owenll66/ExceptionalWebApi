@@ -30,7 +30,9 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
         var response = await client.PostAsJsonAsync(url, new RequestPayload { Prop1 = payloadProp1, Prop2 = payloadProp2 });
         var responseContent = await response.Content.ReadAsStringAsync();
 
-        var payLoad = JsonSerializer.Deserialize<RequestPayload>(responseContent);
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+        var payLoad = JsonSerializer.Deserialize<RequestPayload>(responseContent, options);
 
         // Assert
         Assert.Equal(statusCode, response.StatusCode);
