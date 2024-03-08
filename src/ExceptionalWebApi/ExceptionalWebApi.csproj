@@ -10,10 +10,10 @@
     <Authors>Owenll66</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Owenll66/ExceptionalWebApi</RepositoryUrl>
-    <Description>A .net web api library that translates exceptions to consistent http error responses fluently.</Description>
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <Description>A .net web api library that translates web api exceptions to consistent http error responses fluently.</Description>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>1.0.2</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

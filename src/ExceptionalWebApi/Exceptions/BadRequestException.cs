@@ -4,8 +4,15 @@ namespace ExceptionalWebApi.Exceptions;
 
 public class BadRequestException : ApiException
 {
-    public BadRequestException(BadRequestProblemDetails? problemDetails = null)
+    public BadRequestException(object errorResponse, int? statusCode = null)
     {
-        ProblemDetails = problemDetails ?? new BadRequestProblemDetails();
+        ErrorResponse = errorResponse;
+        StatusCode = statusCode;
+    }
+
+    public BadRequestException(BadRequestProblemDetails? errorResponse = null)
+    {
+        ErrorResponse = errorResponse ?? new BadRequestProblemDetails();
+        StatusCode = ((BadRequestProblemDetails)ErrorResponse).Status;
     }
 }

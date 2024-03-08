@@ -35,7 +35,12 @@ You can produce more detailed error by specifying the problem details:
 throw new BadRequestException(new BadRequestProblemDetails { /* Detail goes here */ });
 throw new InternalServerErrorException(new InternalServerErrorProblemDetails() { /* Detail goes here */ });
 throw new NotFoundException(new NotFoundProblemDetails() { /* Detail goes here */ })
-...
+```
+
+You can also pass any type of object to be serilized in the http response:
+```csharp
+throw new BadRequestException(new CustomErrorResponse { Prop1 = "something", Prop2 = 100 });
+throw new InternalServerErrorException(new { Prop1 = "error", Prop2 = 123 });
 ```
 
 The execeptions will be translated to errors in a consistent format in json.
