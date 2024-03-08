@@ -35,7 +35,7 @@ namespace WebApi.Controllers
                     if (payload != null)
                         throw new UnauthorizedException(payload, 401);
 
-                    throw new BadRequestException();
+                    throw new UnauthorizedException();
 
                 case HttpStatusCode.Forbidden:
                     if (payload != null)

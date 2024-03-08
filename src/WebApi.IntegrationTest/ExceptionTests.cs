@@ -20,7 +20,7 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
     [InlineData(HttpStatusCode.Forbidden, "testProp3", 3)]
     [InlineData(HttpStatusCode.NotFound, "testProp4", 4)]
     [InlineData(HttpStatusCode.InternalServerError, "testProp5", 5)]
-    public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatus(HttpStatusCode statusCode, string payloadProp1, int payloadProp2)
+    public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatusAndPayload(HttpStatusCode statusCode, string payloadProp1, int payloadProp2)
     {
         // Arrange
         var client = _factory.CreateClient();
@@ -32,12 +32,31 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
 
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        var payLoad = JsonSerializer.Deserialize<RequestPayload>(responseContent, options);
+        var responsePayLoad = JsonSerializer.Deserialize<RequestPayload>(responseContent, options);
 
         // Assert
         Assert.Equal(statusCode, response.StatusCode);
-        Assert.Equal(payloadProp1, payLoad!.Prop1);
-        Assert.Equal(payloadProp2, payLoad.Prop2);
+        Assert.Equal(payloadProp1, responsePayLoad!.Prop1);
+        Assert.Equal(payloadProp2, responsePayLoad.Prop2);
+    }
+
+    [Theory]
+    [InlineData(HttpStatusCode.BadRequest)]
+    [InlineData(HttpStatusCode.Unauthorized)]
+    [InlineData(HttpStatusCode.Forbidden)]
+    [InlineData(HttpStatusCode.NotFound)]
+    [InlineData(HttpStatusCode.InternalServerError)]
+    public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatus(HttpStatusCode statusCode)
+    {
+        // Arrange
+        var client = _factory.CreateClient();
+        var url = "exceptions/" + statusCode;
+
+        // Act
+        var response = await client.PostAsync(url, null);
+
+        // Assert
+        Assert.Equal(statusCode, response.StatusCode);
     }
 
     private class RequestPayload
