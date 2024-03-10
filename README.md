@@ -43,7 +43,7 @@ throw new BadRequestException(new CustomErrorResponse { Prop1 = "something", Pro
 throw new InternalServerErrorException(new { Prop1 = "error", Prop2 = 123 });
 ```
 
-### Define your custom exceptions
+### Define your own custom exceptions:
 ```csharp
 public class CustomException : ApiException
 {
