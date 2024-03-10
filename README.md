@@ -47,7 +47,7 @@ throw new InternalServerErrorException(new { Prop1 = "error", Prop2 = 123 });
 ```csharp
 public class CustomException : ApiException
 {
-    public override int? StatusCode { get; set; } = 9999;
+    public override int? StatusCode { get; set; } = 402;
 
     public CustomException(object errorResponse, int? statusCode = null)
     {
