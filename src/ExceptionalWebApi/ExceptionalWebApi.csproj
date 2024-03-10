@@ -13,11 +13,11 @@
     <Description>A .net web api library that translates web api exceptions to consistent http error responses fluently.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include=".\README.md" Pack="true" PackagePath="\"/>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>

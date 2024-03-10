@@ -4,7 +4,7 @@ public class ApiException : Exception
 {
     public object ErrorResponse { get; set; }
 
-    public int? StatusCode { get; set; }
+    public virtual int? StatusCode { get; set; }
 
     public ApiException()
     {

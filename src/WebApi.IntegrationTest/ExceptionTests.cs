@@ -20,6 +20,7 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
     [InlineData(HttpStatusCode.Forbidden, "testProp3", 3)]
     [InlineData(HttpStatusCode.NotFound, "testProp4", 4)]
     [InlineData(HttpStatusCode.InternalServerError, "testProp5", 5)]
+    [InlineData(HttpStatusCode.PaymentRequired, "testProp6", 6)]
     public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatusAndPayload(HttpStatusCode statusCode, string payloadProp1, int payloadProp2)
     {
         // Arrange
@@ -46,6 +47,7 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
     [InlineData(HttpStatusCode.Forbidden)]
     [InlineData(HttpStatusCode.NotFound)]
     [InlineData(HttpStatusCode.InternalServerError)]
+    [InlineData(HttpStatusCode.PaymentRequired)]
     public async Task GetHttpResponseByStatusCode_ShouldReturnCorrectStatus(HttpStatusCode statusCode)
     {
         // Arrange

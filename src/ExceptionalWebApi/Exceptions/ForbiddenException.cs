@@ -1,18 +1,19 @@
-﻿using ExceptionalWebApi.Responses;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ExceptionalWebApi.Exceptions;
 
 public class ForbiddenException : ApiException
 {
+    public override int? StatusCode { get; set; } = 403;
+
     public ForbiddenException(object errorResponse, int? statusCode = null)
     {
         ErrorResponse = errorResponse;
         StatusCode = statusCode;
     }
 
-    public ForbiddenException(ForbiddenProblemDetails? problemDetails = null)
+    public ForbiddenException(ProblemDetails? problemDetails = null)
     {
-        ErrorResponse = problemDetails ?? new ForbiddenProblemDetails();
-        StatusCode = ((ForbiddenProblemDetails)ErrorResponse).Status;
+        ErrorResponse = problemDetails ?? new ProblemDetails() { Title = "Forbidden", Status = StatusCode };
     }
 }

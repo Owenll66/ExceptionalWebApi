@@ -55,6 +55,12 @@ namespace WebApi.Controllers
 
                     throw new InternalServerErrorException();
 
+                case HttpStatusCode.PaymentRequired:
+                    if (payload != null)
+                        throw new CustomException(payload, 402);
+
+                    throw new CustomException();
+
                 default:
                     return Ok();
             }
