@@ -1,18 +1,19 @@
-﻿using ExceptionalWebApi.Responses;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ExceptionalWebApi.Exceptions;
 
 public class InternalServerErrorException : ApiException
 {
+    public override int? StatusCode { get; set; } = 500;
+
     public InternalServerErrorException(object errorResponse, int? statusCode = null)
     {
         ErrorResponse = errorResponse;
         StatusCode = statusCode;
     }
 
-    public InternalServerErrorException(InternalServerErrorProblemDetails? problemDetails = null)
+    public InternalServerErrorException(ProblemDetails? problemDetails = null)
     {
-        ErrorResponse = problemDetails ?? new InternalServerErrorProblemDetails();
-        StatusCode = ((InternalServerErrorProblemDetails)ErrorResponse).Status;
+        ErrorResponse = problemDetails ?? new ProblemDetails() { Title = "Internal Server Error", Status = StatusCode };
     }
 }
