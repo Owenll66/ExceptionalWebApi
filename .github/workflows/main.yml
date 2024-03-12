@@ -3,11 +3,11 @@ on:
     branches:
     - main
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./app
+        working-directory: ./src
     steps:
     - uses: actions/checkout@v2
     - name: Build
