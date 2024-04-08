@@ -5,15 +5,21 @@ namespace ExceptionalWebApi.Exceptions;
 public class CustomException : ApiException
 {
     public override int? StatusCode { get; set; } = 402;
+    public override string? Title { get; set; } = "Payment Required";
 
-    public CustomException(object errorResponse, int? statusCode = null)
+    public CustomException(string? errorDetails = null)
     {
-        ErrorResponse = errorResponse;
-        StatusCode = statusCode;
+        ErrorResponse = new ProblemDetails()
+        {
+            Title = Title,
+            Detail = errorDetails,
+            Status = StatusCode
+        };
     }
 
-    public CustomException(ProblemDetails? errorResponse = null)
+    public CustomException(ProblemDetails problemDetails) : base(problemDetails)
     {
-        ErrorResponse = errorResponse ?? new ProblemDetails() { Title = "Bad Request", Status = StatusCode };
+        problemDetails.Title ??= Title;
+        problemDetails.Status ??= StatusCode;
     }
 }
