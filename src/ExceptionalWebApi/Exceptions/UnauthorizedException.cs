@@ -5,6 +5,7 @@ namespace ExceptionalWebApi.Exceptions;
 public class UnauthorizedException : ApiException
 {
     public override int? StatusCode { get; set; } = 401;
+    public override string? Title { get; set; } = "Unauthorized";
 
     public UnauthorizedException(string? errorDetails = null)
     {
@@ -18,5 +19,7 @@ public class UnauthorizedException : ApiException
 
     public UnauthorizedException(ProblemDetails problemDetails) : base(problemDetails)
     {
+        problemDetails.Title ??= Title;
+        problemDetails.Status ??= StatusCode;
     }
 }

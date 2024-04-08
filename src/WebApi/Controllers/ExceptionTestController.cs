@@ -6,11 +6,11 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("exceptions")]
-    public class ExceptionController : ControllerBase
+    public class ExceptionTestController : ControllerBase
     {
-        private readonly ILogger<ExceptionController> _logger;
+        private readonly ILogger<ExceptionTestController> _logger;
 
-        public ExceptionController(ILogger<ExceptionController> logger)
+        public ExceptionTestController(ILogger<ExceptionTestController> logger)
         {
             _logger = logger;
         }
