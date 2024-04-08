@@ -6,14 +6,17 @@ public class ForbiddenException : ApiException
 {
     public override int? StatusCode { get; set; } = 403;
 
-    public ForbiddenException(object errorResponse, int? statusCode = null)
+    public ForbiddenException(string? errorDetails = null)
     {
-        ErrorResponse = errorResponse;
-        StatusCode = statusCode;
+        ErrorResponse = new ProblemDetails()
+        {
+            Title = "Forbidden",
+            Detail = errorDetails,
+            Status = StatusCode
+        };
     }
 
-    public ForbiddenException(ProblemDetails? problemDetails = null)
+    public ForbiddenException(ProblemDetails problemDetails) : base(problemDetails)
     {
-        ErrorResponse = problemDetails ?? new ProblemDetails() { Title = "Forbidden", Status = StatusCode };
     }
 }

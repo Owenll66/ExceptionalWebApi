@@ -15,50 +15,32 @@ namespace WebApi.Controllers
             _logger = logger;
         }
 
-        [HttpPost("{statusCode}")]
+        [HttpGet("{statusCode}")]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetHttpResponseByStatusCode([FromRoute]HttpStatusCode statusCode, [FromBody] object? payload = null)
+        public IActionResult GetHttpResponseByStatusCode([FromRoute]HttpStatusCode statusCode)
         {
             switch (statusCode)
             {
                 case HttpStatusCode.BadRequest:
-                    if (payload != null)
-                        throw new BadRequestException(payload, 400);
-
                     throw new BadRequestException();
 
                 case HttpStatusCode.Unauthorized:
-                    if (payload != null)
-                        throw new UnauthorizedException(payload, 401);
-
                     throw new UnauthorizedException();
 
                 case HttpStatusCode.Forbidden:
-                    if (payload != null)
-                        throw new ForbiddenException(payload, 403);
-
                     throw new ForbiddenException();
 
                 case HttpStatusCode.NotFound:
-                    if (payload != null)
-                        throw new NotFoundException(payload, 404);
-
                     throw new NotFoundException();
 
                 case HttpStatusCode.InternalServerError:
-                    if (payload != null)
-                        throw new InternalServerErrorException(payload, 500);
-
                     throw new InternalServerErrorException();
 
                 case HttpStatusCode.PaymentRequired:
-                    if (payload != null)
-                        throw new CustomException(payload, 402);
-
                     throw new CustomException();
 
                 default:

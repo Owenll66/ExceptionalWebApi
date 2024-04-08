@@ -6,14 +6,17 @@ public class InternalServerErrorException : ApiException
 {
     public override int? StatusCode { get; set; } = 500;
 
-    public InternalServerErrorException(object errorResponse, int? statusCode = null)
+    public InternalServerErrorException(string? errorDetails = null)
     {
-        ErrorResponse = errorResponse;
-        StatusCode = statusCode;
+        ErrorResponse = new ProblemDetails()
+        {
+            Title = "Internal Server Error",
+            Detail = errorDetails,
+            Status = StatusCode
+        };
     }
 
-    public InternalServerErrorException(ProblemDetails? problemDetails = null)
+    public InternalServerErrorException(ProblemDetails problemDetails) : base(problemDetails)
     {
-        ErrorResponse = problemDetails ?? new ProblemDetails() { Title = "Internal Server Error", Status = StatusCode };
     }
 }
