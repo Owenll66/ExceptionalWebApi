@@ -42,6 +42,7 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Theory]
+    [InlineData(HttpStatusCode.Ambiguous)]
     [InlineData(HttpStatusCode.BadRequest)]
     [InlineData(HttpStatusCode.Unauthorized)]
     [InlineData(HttpStatusCode.Forbidden)]
@@ -58,7 +59,20 @@ public class ExceptionTests : IClassFixture<WebApplicationFactory<Program>>
         var response = await client.PostAsync(url, null);
 
         // Assert
-        Assert.Equal(statusCode, response.StatusCode);
+        var handleStatusCode = new HttpStatusCode[]
+        {
+            HttpStatusCode.BadRequest,
+            HttpStatusCode.Unauthorized,
+            HttpStatusCode.Forbidden,
+            HttpStatusCode.NotFound,
+            HttpStatusCode.InternalServerError,
+            HttpStatusCode.PaymentRequired
+        };
+
+        if (handleStatusCode.Contains(statusCode))
+            Assert.Equal(statusCode, response.StatusCode);
+        else
+            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
     }
 
     private class RequestPayload

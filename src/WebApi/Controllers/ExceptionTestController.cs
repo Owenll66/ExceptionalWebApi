@@ -62,7 +62,7 @@ namespace WebApi.Controllers
                     throw new CustomException();
 
                 default:
-                    return Ok();
+                    throw new Exception();
             }
         }
     }
