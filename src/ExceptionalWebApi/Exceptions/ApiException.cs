@@ -1,18 +1,25 @@
-﻿namespace ExceptionalWebApi.Exceptions;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class ApiException : Exception
+namespace ExceptionalWebApi.Exceptions;
+
+public abstract class ApiException : Exception
 {
     public object ErrorResponse { get; set; }
 
-    public virtual int? StatusCode { get; set; }
+    public abstract int? StatusCode { get; set; }
 
     public ApiException()
     {
         ErrorResponse = new();
     }
 
-    public ApiException(object errorResponse)
+    public ApiException(ValidationProblemDetails validationProblemDetails)
     {
-        ErrorResponse = errorResponse;
+        ErrorResponse = validationProblemDetails;
+    }
+
+    public ApiException(ProblemDetails problemDetails)
+    {
+        ErrorResponse = problemDetails;
     }
 }

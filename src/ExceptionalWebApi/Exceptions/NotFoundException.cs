@@ -6,14 +6,17 @@ public class NotFoundException : ApiException
 {
     public override int? StatusCode { get; set; } = 404;
 
-    public NotFoundException(object errorResponse, int? statusCode = null)
+    public NotFoundException(string? errorDetails = null)
     {
-        ErrorResponse = errorResponse;
-        StatusCode = statusCode;
+        ErrorResponse = new ProblemDetails()
+        {
+            Title = "Not Found",
+            Detail = errorDetails,
+            Status = StatusCode
+        };
     }
 
-    public NotFoundException(ProblemDetails? problemDetails = null)
+    public NotFoundException(ProblemDetails problemDetails) : base(problemDetails)
     {
-        ErrorResponse = problemDetails ?? new ProblemDetails() { Title = "Not Found", Status = StatusCode };
     }
 }

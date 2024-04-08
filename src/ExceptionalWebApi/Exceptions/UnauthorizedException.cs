@@ -6,14 +6,17 @@ public class UnauthorizedException : ApiException
 {
     public override int? StatusCode { get; set; } = 401;
 
-    public UnauthorizedException(object errorResponse, int? statusCode = null)
+    public UnauthorizedException(string? errorDetails = null)
     {
-        ErrorResponse = errorResponse;
-        StatusCode = statusCode;
+        ErrorResponse = new ProblemDetails()
+        {
+            Title = "Unauthorized",
+            Detail = errorDetails,
+            Status = StatusCode
+        };
     }
 
-    public UnauthorizedException(ProblemDetails? problemDetails = null)
+    public UnauthorizedException(ProblemDetails problemDetails) : base(problemDetails)
     {
-        ErrorResponse = problemDetails ?? new ProblemDetails() { Title = "Unauthorized", Status = StatusCode };
     }
 }
